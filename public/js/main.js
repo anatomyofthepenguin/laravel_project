@@ -22,7 +22,6 @@ $("#orderCreate").click(function(e){
             }
         },
         error: function(data){
-            console.log(data);
             $("#errorMessage").text('Произошла ошибка.').show()
         }
     });
