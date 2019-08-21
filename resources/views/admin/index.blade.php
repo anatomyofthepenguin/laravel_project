@@ -12,7 +12,7 @@
                             <li class="list-group-item"><a href="{{route('admin.categories')}}">Категории</a></li>
                             <li class="list-group-item"><a href="{{route('admin.products')}}">Товары</a></li>
                             <li class="list-group-item"><a href="{{route('admin.orders')}}">Заказы</a></li>
-                            <li class="list-group-item"><a href="#">Уведомления</a></li>
+                            <li class="list-group-item"><a href="{{route('admin.settings')}}">Уведомления</a></li>
                         </ul>
                     </div>
                 </div>
