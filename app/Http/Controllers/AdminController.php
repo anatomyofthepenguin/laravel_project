@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+    const COUNT_ON_PAGE = 15;
     public function index()
     {
         return view('admin.index');
@@ -20,7 +21,7 @@ class AdminController extends Controller
 
     public function getCategories()
     {
-        $categories = Category::paginate(15);
+        $categories = Category::paginate(self::COUNT_ON_PAGE);
 
         return view('admin.categories.index', ["categories" => $categories]);
     }
@@ -32,10 +33,8 @@ class AdminController extends Controller
 
     public function addCategory(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->descr = $request->descr;
-        $category->save();
+        $data = $request->only(['name', 'descr']);
+        Category::create($data);
 
         return redirect()->route('admin.categories');
     }
@@ -63,7 +62,7 @@ class AdminController extends Controller
 
     public function getProducts()
     {
-        $products = Product::paginate(15);
+        $products = Product::paginate(self::COUNT_ON_PAGE);
 
         return view('admin.products.index', ["products" => $products]);
     }
@@ -76,14 +75,9 @@ class AdminController extends Controller
     public function addProduct(ProductRequest $request)
     {
         $path = $request->file('photo')->store('public');
-
-        $product = new Product();
-        $product->name = $request->name;
-        $product->descr = $request->descr;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->photo = Storage::url($path);
-        $product->save();
+        $data = $request->only(['name', 'descr', 'price', 'category_id']);
+        $data['photo'] = Storage::url($path);
+        Product::create($data);
 
         return redirect()->route('admin.products');
     }
@@ -119,7 +113,7 @@ class AdminController extends Controller
 
     public function getOrders()
     {
-        $orders = Order::paginate(15);
+        $orders = Order::paginate(self::COUNT_ON_PAGE);
         return view('admin.orders.index', ["orders" => $orders]);
     }
 
