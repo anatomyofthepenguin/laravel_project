@@ -9,6 +9,8 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class ProductController extends Controller
 {
+    const COUNT_ON_PAGE = 15;
+
     public function index(Category $category = null)
     {
         if (!$category) {
@@ -16,7 +18,7 @@ class ProductController extends Controller
             return view('products.all', ["products" => $products]);
         }
 
-        $products = Product::where('category_id', $category->id)->paginate(15);
+        $products = Product::where('category_id', $category->id)->paginate(self::COUNT_ON_PAGE);
         return view('products.all', ["products" => $products, "category" => $category->name]);
     }
 

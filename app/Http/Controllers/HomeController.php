@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    const PRODUCTS_COUNT_ON_PAGE = 15;
+
     /**
      * Create a new controller instance.
      *
@@ -24,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(15);
+        $products = Product::paginate(self::PRODUCTS_COUNT_ON_PAGE);
         return view('home', ["products" => $products]);
     }
 }

@@ -27,9 +27,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        $categories = Category::all();
-        $randomProduct = Product::all()->random(1)->first();
-        view()->share("categories", $categories);
-        view()->share("randomProduct", $randomProduct);
+        if (Schema::hasTable('categories')) {
+            $categories = Category::all();
+            view()->share("categories", $categories);
+        }
+
+        if (Schema::hasTable('products')) {
+            $randomProducts = Product::all();
+            if ($randomProducts->isNotEmpty()) {
+                $randomProduct = $randomProducts->random(1)->first();
+                view()->share("randomProduct", $randomProduct);
+            }
+        }
     }
 }

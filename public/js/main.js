@@ -12,7 +12,7 @@ $("#orderCreate").click(function(e){
     $.ajax({
         type:'POST',
         url:'/orders/create',
-        data:{name:name, email:email, _token:CSRF_TOKEN, price:price, product_id: productID},
+        data:{name:name, email:email, _token:CSRF_TOKEN, total:price, product_id: productID},
 
         success: function (data) {
             if (data.error) {
@@ -22,6 +22,7 @@ $("#orderCreate").click(function(e){
             }
         },
         error: function(data){
+            console.log(data.responseJSON);
             $("#errorMessage").text('Произошла ошибка.').show()
         }
     });

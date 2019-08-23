@@ -75,9 +75,11 @@
                 <div class="sidebar-item__title">Категории</div>
                 <div class="sidebar-item__content">
                     <ul class="sidebar-category">
-                        @foreach($categories as $category)
-                        <li class="sidebar-category__item"><a href="{{route('products.category', $category->id)}}" class="sidebar-category__item__link">{{$category->name}}</a></li>
-                        @endforeach
+                        @isset($categories)
+                            @foreach($categories as $category)
+                            <li class="sidebar-category__item"><a href="{{route('products.category', $category->id)}}" class="sidebar-category__item__link">{{$category->name}}</a></li>
+                            @endforeach
+                        @endisset
                     </ul>
                 </div>
             </div>
@@ -118,12 +120,14 @@
                 <div class="random-product-container__head">Случайный товар</div>
                 <div class="random-product-container__content">
                     <div class="item-product">
+                        @isset($randomProduct)
                         <div class="item-product__title-product"><a href="#" class="item-product__title-product__link">{{$randomProduct->name}}</a></div>
                         <div class="item-product__thumbnail"><a href="#" class="item-product__thumbnail__link"><img src="{{$randomProduct->photo}}" alt="Preview-image" class="item-product__thumbnail__link__img"></a></div>
                         <div class="item-product__description">
                             <div class="item-product__description__products-price"><span class="products-price">{{$randomProduct->price}} руб</span></div>
                             <div class="item-product__description__btn-block"><a href="{{route('products.view', $randomProduct->id)}}" class="btn btn-blue">Купить</a></div>
                         </div>
+                        @endisset
                     </div>
                 </div>
             </div>
